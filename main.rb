@@ -18,8 +18,6 @@ post '/set' do
   else
     data = JSON.pretty_generate(JSON.parse(File.read(FILE_NAME)).merge(params))
   end
-  
   File.write(FILE_NAME, data)
-
   status 204
 end
