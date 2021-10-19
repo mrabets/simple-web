@@ -9,17 +9,16 @@ before do
 end
 
 get '/get/:key' do
-  data = File.read(FILE_NAME)
-  JSON.parse(data)[params[:key]]
+  JSON.parse(File.read(FILE_NAME))[params[:key]]
 end
 
 post '/set' do
   if File.zero?(FILE_NAME)
     data = params.to_json
   else
-    json = File.read(FILE_NAME)
-    data = JSON.pretty_generate(JSON.parse(json).merge(params))
+    data = JSON.pretty_generate(JSON.parse(File.read(FILE_NAME)).merge(params))
   end
+  
   File.write(FILE_NAME, data)
 
   status 204
